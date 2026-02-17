@@ -40,5 +40,5 @@ for host, finishedresult in scan_results.items():
 
 input("Press Enter to exit...")
 
-#Praise Jesus!
+# Praise Jesus!
 
