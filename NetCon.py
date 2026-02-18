@@ -29,14 +29,17 @@ for host in hosts:
     start_time = t.perf_counter()  # Start the timer
     pingcommand = ping_result(host, flag)
     end_time = t.perf_counter()  # End the timer
-    scan_results[host] = (pingcommand.returncode == 0, end_time - start_time)  # Store both result and time
+    scan_results[host] = {
+        "alive": pingcommand.returncode == 0,
+        "duration": end_time - start_time
+    }
 
 # Check the return code to determine if the ping was successful
 for host, finishedresult in scan_results.items():
-    if finishedresult[0]:
-        print(f"{host}: Up (Time: {finishedresult[1]:.2f} seconds)")
+    if finishedresult["alive"]:
+        print(f"{host}: Up (Time: {finishedresult["duration"]:.2f} seconds)")
     else:
-        print(f"{host}: Down (Time: {finishedresult[1]:.2f} seconds)")
+        print(f"{host}: Down (Time: {finishedresult["duration"]:.2f} seconds)")
 
 input("Press Enter to exit...")
 
